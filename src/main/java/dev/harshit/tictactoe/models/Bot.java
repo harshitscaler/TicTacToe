@@ -1,9 +1,24 @@
 package dev.harshit.tictactoe.models;
+
+import java.util.List;
+
 public class Bot extends Player {
-    private dev.harshit.tictactoe.models.BotDifficultyLevel botDifficultyLevel;
+    private BotDifficultyLevel botDifficultyLevel;
     public  Bot(String name, Symbol symbol, PlayerType playerType , BotDifficultyLevel botDifficultyLevel){
         super(name,symbol,playerType);
         this.botDifficultyLevel = botDifficultyLevel;
+    }
+
+    public Move makeMove(Board board){
+        // find the first emoty cell and move there
+        for(List<Cell> row : board.getBoard()){
+            for(Cell cell : row){
+                if(cell.getCellState().equals(CellState.EMPTY)){
+                    return new Move(cell , this);
+                }
+            }
+        }
+        return null;
     }
 
 }
